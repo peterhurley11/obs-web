@@ -1,0 +1,89 @@
+// src/lib/animations.scss
+
+:root {
+  --anim-duration: 400ms;
+}
+
+// fade
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fade-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; }
+}
+.anim-fade-in  { animation: fade-in  var(--anim-duration) ease forwards; }
+.anim-fade-out { animation: fade-out var(--anim-duration) ease forwards; }
+
+// slide-up
+@keyframes slide-up-in {
+  from { opacity: 0; transform: translateY(60px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes slide-up-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateY(60px); }
+}
+.anim-slide-up-in  { animation: slide-up-in  var(--anim-duration) ease forwards; }
+.anim-slide-up-out { animation: slide-up-out var(--anim-duration) ease forwards; }
+
+// slide-down
+@keyframes slide-down-in {
+  from { opacity: 0; transform: translateY(-60px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes slide-down-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateY(-60px); }
+}
+.anim-slide-down-in  { animation: slide-down-in  var(--anim-duration) ease forwards; }
+.anim-slide-down-out { animation: slide-down-out var(--anim-duration) ease forwards; }
+
+// slide-left
+@keyframes slide-left-in {
+  from { opacity: 0; transform: translateX(80px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes slide-left-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateX(80px); }
+}
+.anim-slide-left-in  { animation: slide-left-in  var(--anim-duration) ease forwards; }
+.anim-slide-left-out { animation: slide-left-out var(--anim-duration) ease forwards; }
+
+// slide-right
+@keyframes slide-right-in {
+  from { opacity: 0; transform: translateX(-80px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes slide-right-out {
+  from { opacity: 1; transform: none; }
+  to   { opacity: 0; transform: translateX(-80px); }
+}
+.anim-slide-right-in  { animation: slide-right-in  var(--anim-duration) ease forwards; }
+.anim-slide-right-out { animation: slide-right-out var(--anim-duration) ease forwards; }
+
+// wipe-left
+@keyframes wipe-left-in {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes wipe-left-out {
+  from { opacity: 1; transform: none; }
+  to   { clip-path: inset(0 0 0 100%); }
+}
+.anim-wipe-left-in  { animation: wipe-left-in  var(--anim-duration) ease forwards; }
+.anim-wipe-left-out { animation: wipe-left-out var(--anim-duration) ease forwards; }
+
+// wipe-right
+@keyframes wipe-right-in {
+  from { clip-path: inset(0 0 0 100%); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes wipe-right-out {
+  from { opacity: 1; transform: none; }
+  to   { clip-path: inset(0 100% 0 0); }
+}
+.anim-wipe-right-in  { animation: wipe-right-in  var(--anim-duration) ease forwards; }
+.anim-wipe-right-out { animation: wipe-right-out var(--anim-duration) ease forwards; }
