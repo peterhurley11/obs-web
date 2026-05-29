@@ -40,7 +40,7 @@ export const viteConfig = defineConfig(({ mode }) => {
                 './src/app.html'
               ],
               safelist: {
-                standard: [/svelte-/]
+                standard: [/svelte-/, /^anim-/, /^animating$/]
               },
               variables: true
             })

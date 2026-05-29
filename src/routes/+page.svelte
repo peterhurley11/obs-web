@@ -707,7 +707,6 @@
           />
         {/if}
       {/each}
-      <GraphicsPanel />
     {:else}
       <h1 class="subtitle">
         Welcome to
@@ -844,6 +843,12 @@
         <a href="/v4/">archived OBS-web v4</a> page.
       </p>
     {/if}
+  </div>
+</section>
+
+<section class="section" style="padding-top: 0;">
+  <div class="container">
+    <GraphicsPanel />
   </div>
 </section>
 
