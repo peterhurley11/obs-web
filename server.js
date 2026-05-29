@@ -3,7 +3,7 @@ import { mkdirSync } from 'fs'
 import { WebSocketServer } from 'ws'
 import sirv from 'sirv'
 
-const PORT = process.env.PORT || 8080
+const PORT = parseInt(process.env.PORT, 10) || 8080
 
 // Ensure public/ exists so sirv doesn't crash before a build has run
 mkdirSync('public', { recursive: true })
@@ -65,12 +65,15 @@ wss.on('connection', (ws) => {
         break
 
       case 'REMOVE_OVERLAY':
+        if (!msg.id || typeof msg.id !== 'string') return
         graphicsState.overlays = graphicsState.overlays.filter(o => o.id !== msg.id)
         graphicsState.version++
         broadcast({ type: 'STATE', state: graphicsState }, ws)
         break
 
       case 'PATCH_OVERLAY':
+        if (!msg.id || typeof msg.id !== 'string') return
+        if (!msg.patch || typeof msg.patch !== 'object' || Array.isArray(msg.patch)) return
         graphicsState.overlays = graphicsState.overlays.map(o =>
           o.id === msg.id ? { ...o, ...msg.patch } : o
         )
