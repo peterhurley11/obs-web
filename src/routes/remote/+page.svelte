@@ -1,6 +1,6 @@
 <!-- src/routes/remote/+page.svelte -->
 <script>
-  import { graphicsState, patchOverlay } from '$lib/graphics.js'
+  import { graphicsState, patchOverlay, wsConnected } from '$lib/graphics.js'
   import { getTemplate } from '$lib/templates.js'
 
   function handleToggle (overlay) {
@@ -17,6 +17,12 @@
     <h1 class="title is-5">Graphics Remote</h1>
   </header>
 
+  {#if !$wsConnected}
+    <div class="notification is-warning is-light" style="margin-bottom: 1rem;">
+      Disconnected — reconnecting…
+    </div>
+  {/if}
+
   <div class="remote-panel__overlays">
     {#each $graphicsState.overlays as overlay (overlay.id)}
       {@const tpl = getTemplate(overlay.templateId)}
@@ -24,7 +30,7 @@
         <div class="remote-card__info">
           <span class="remote-card__label">{tpl?.label || overlay.templateId}</span>
           <span class="remote-card__preview">
-            {Object.values(overlay.fields).slice(0, 2).join(' / ')}
+            {Object.values(overlay.fields ?? {}).slice(0, 2).join(' / ') || '—'}
           </span>
         </div>
         <button
