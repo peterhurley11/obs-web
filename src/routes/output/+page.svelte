@@ -17,7 +17,7 @@
 <style>
   :global(html, body) {
     background: transparent !important;
-    overflow: hidden;
+    overflow: hidden !important;
     margin: 0;
     padding: 0;
   }
