@@ -1,5 +1,5 @@
 <script>
-  export let fields = { name: '', title: '' }
+  let { fields = { name: '', title: '' } } = $props()
 </script>
 
 <div class="lower-third">

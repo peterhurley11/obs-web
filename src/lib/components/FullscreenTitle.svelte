@@ -1,5 +1,5 @@
 <script>
-  export let fields = { headline: '', subtext: '' }
+  let { fields = { headline: '', subtext: '' } } = $props()
 </script>
 
 <div class="fullscreen-title">

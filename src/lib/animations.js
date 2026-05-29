@@ -10,14 +10,16 @@ export function animate (element, direction, animName, durationMs) {
     const className = `anim-${animName}-${direction}`
     element.style.setProperty('--anim-duration', `${durationMs}ms`)
     element.classList.add('animating', className)
+    let timeoutId
     const onEnd = () => {
+      clearTimeout(timeoutId)
       element.classList.remove('animating', className)
       element.removeEventListener('animationend', onEnd)
       resolve()
     }
     element.addEventListener('animationend', onEnd)
     // Safety timeout in case animationend never fires
-    setTimeout(() => {
+    timeoutId = setTimeout(() => {
       element.classList.remove('animating', className)
       element.removeEventListener('animationend', onEnd)
       resolve()

@@ -1,5 +1,5 @@
 <script>
-  export let fields = { teamA: 'HOME', teamB: 'AWAY', scoreA: '0', scoreB: '0', period: 'Q1' }
+  let { fields = { teamA: 'HOME', teamB: 'AWAY', scoreA: '0', scoreB: '0', period: 'Q1' } } = $props()
 </script>
 
 <div class="scoreboard">
