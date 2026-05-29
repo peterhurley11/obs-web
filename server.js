@@ -34,9 +34,13 @@ function broadcast (data, exclude) {
   }
 }
 
+wss.on('error', (err) => { console.error('wss error:', err); process.exit(1) })
+
 wss.on('connection', (ws) => {
   // Send current state to the newly connected client
   ws.send(JSON.stringify({ type: 'STATE', state: graphicsState }))
+
+  ws.on('error', (err) => console.error('ws client error:', err.message))
 
   ws.on('message', (raw) => {
     let msg
@@ -52,8 +56,11 @@ wss.on('connection', (ws) => {
         break
 
       case 'ADD_OVERLAY':
-        graphicsState.overlays.push(msg.overlay)
-        graphicsState.version++
+        if (!msg.overlay || typeof msg.overlay !== 'object') return
+        graphicsState = {
+          overlays: [...graphicsState.overlays, msg.overlay],
+          version: graphicsState.version + 1
+        }
         broadcast({ type: 'STATE', state: graphicsState }, ws)
         break
 
@@ -71,12 +78,15 @@ wss.on('connection', (ws) => {
         broadcast({ type: 'STATE', state: graphicsState }, ws)
         break
 
-      case 'SET_STATE':
-        if (msg.state.version > graphicsState.version) {
-          graphicsState = msg.state
+      case 'SET_STATE': {
+        const s = msg.state
+        if (s && typeof s === 'object' && Array.isArray(s.overlays) &&
+            typeof s.version === 'number' && s.version > graphicsState.version) {
+          graphicsState = s
           broadcast({ type: 'STATE', state: graphicsState }, ws)
         }
         break
+      }
     }
   })
 })
