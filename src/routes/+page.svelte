@@ -39,8 +39,10 @@
   import ProgramPreview from '../ProgramPreview.svelte'
   import SceneSwitcher from '../SceneSwitcher.svelte'
   import SourceSwitcher from '../SourceSwitcher.svelte'
+  import SourceVisibility from '../SourceVisibility.svelte'
   import ProfileSelect from '../ProfileSelect.svelte'
   import SceneCollectionSelect from '../SceneCollectionSelect.svelte'
+  import GraphicsPanel from '$lib/components/GraphicsPanel.svelte'
 
   onMount(async () => {
     if ('serviceWorker' in navigator) {
@@ -125,6 +127,7 @@
   let address
   let password
   let scenes = []
+  let programScene = ''
   let replayError = ''
   let errorMessage = ''
   let imageFormat = 'jpg'
@@ -644,6 +647,13 @@
             <ProfileSelect />
             <SceneCollectionSelect />
             <button
+              class="button is-link is-light"
+              title="Copy browser source URL for OBS graphics output"
+              on:click={() => navigator.clipboard.writeText(`${location.protocol}//${location.host}/output`)}
+            >
+              OBS URL
+            </button>
+            <button
               class="button is-danger is-light"
               on:click={disconnect}
               title="Disconnect"
@@ -680,12 +690,14 @@
       {/if}
       <SceneSwitcher
         bind:scenes
+        bind:programScene
         buttonStyle={isIconMode ? 'icon' : 'text'}
         {editable}
       />
       {#if !isSceneOnTop}
         <ProgramPreview {imageFormat} />
       {/if}
+      <SourceVisibility {programScene} />
       {#each scenes as scene}
         {#if scene.sceneName.indexOf('(switch)') > 0}
           <SourceSwitcher
@@ -695,6 +707,7 @@
           />
         {/if}
       {/each}
+      <GraphicsPanel />
     {:else}
       <h1 class="subtitle">
         Welcome to
@@ -843,6 +856,10 @@
       &mdash; see
       <a href="https://github.com/Niek/obs-web">GitHub</a>
       for source code.
+    </p>
+    <p style="margin-top: 1rem; font-size: 0.85rem;">
+      <a href="/remote">Remote Control</a> &mdash;
+      <a href="/output">Graphics Output</a>
     </p>
   </div>
 </footer>
