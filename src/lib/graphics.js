@@ -6,6 +6,7 @@ export const wsConnected = writable(false)
 
 let ws = null
 let reconnectTimer = null
+let intentionalClose = false
 const WS_PATH = '/gs'
 
 function getWsUrl () {
@@ -34,7 +35,10 @@ export function connectGraphicsWs () {
   ws.addEventListener('close', () => {
     wsConnected.set(false)
     ws = null
-    reconnectTimer = setTimeout(connectGraphicsWs, 2000)
+    if (!intentionalClose) {
+      reconnectTimer = setTimeout(connectGraphicsWs, 2000)
+    }
+    intentionalClose = false
   })
 
   ws.addEventListener('error', () => {
@@ -44,6 +48,7 @@ export function connectGraphicsWs () {
 
 export function disconnectGraphicsWs () {
   clearTimeout(reconnectTimer)
+  intentionalClose = true
   if (ws) {
     ws.close()
     ws = null
@@ -75,5 +80,5 @@ export function patchOverlay (id, patch) {
 }
 
 export function makeOverlayId () {
-  return `ov_${Date.now()}`
+  return `ov_${crypto.randomUUID()}`
 }
