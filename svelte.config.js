@@ -55,6 +55,15 @@ export const viteConfig = defineConfig(({ mode }) => {
           passes: 2
         }
       }
+    },
+    server: {
+      proxy: {
+        '/gs': {
+          target: 'ws://localhost:8081',
+          ws: true,
+          rewriteWsOrigin: true
+        }
+      }
     }
   }
 })
