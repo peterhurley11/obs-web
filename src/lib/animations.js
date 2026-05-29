@@ -19,6 +19,7 @@ export function animate (element, direction, animName, durationMs) {
     // Safety timeout in case animationend never fires
     setTimeout(() => {
       element.classList.remove('animating', className)
+      element.removeEventListener('animationend', onEnd)
       resolve()
     }, durationMs + 100)
   })

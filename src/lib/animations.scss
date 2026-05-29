@@ -67,10 +67,10 @@
 // wipe-left
 @keyframes wipe-left-in {
   from { clip-path: inset(0 100% 0 0); }
-  to   { opacity: 1; transform: none; }
+  to   { clip-path: inset(0 0 0 0); }
 }
 @keyframes wipe-left-out {
-  from { opacity: 1; transform: none; }
+  from { clip-path: inset(0 0 0 0); }
   to   { clip-path: inset(0 0 0 100%); }
 }
 .anim-wipe-left-in  { animation: wipe-left-in  var(--anim-duration) ease forwards; }
@@ -79,10 +79,10 @@
 // wipe-right
 @keyframes wipe-right-in {
   from { clip-path: inset(0 0 0 100%); }
-  to   { opacity: 1; transform: none; }
+  to   { clip-path: inset(0 0 0 0); }
 }
 @keyframes wipe-right-out {
-  from { opacity: 1; transform: none; }
+  from { clip-path: inset(0 0 0 0); }
   to   { clip-path: inset(0 100% 0 0); }
 }
 .anim-wipe-right-in  { animation: wipe-right-in  var(--anim-duration) ease forwards; }
