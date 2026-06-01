@@ -1,6 +1,6 @@
-<!-- Who's Next lower third — pill badge style matching Almost Friday brand -->
+<!-- Who's Next lower third — Zuume Edge Cut, white text, transparent bg -->
 <script>
-  let { fields = { name: 'PLAYER NAME', title: 'TEAM · POSITION', color: '#111111', imageUrl: '' } } = $props()
+  let { fields = { name: 'PLAYER NAME', title: 'TEAM · POSITION', color: '#ffffff', imageUrl: '' } } = $props()
 </script>
 
 {#if fields.imageUrl}
@@ -8,12 +8,8 @@
 {/if}
 
 <div class="wn-lower-third">
-  <div class="wn-pill wn-pill--name" style:color={fields.color}>
-    {fields.name}
-  </div>
-  <div class="wn-pill wn-pill--title" style:color={fields.color}>
-    {fields.title}
-  </div>
+  <div class="wn-name" style:color={fields.color}>{fields.name}</div>
+  <div class="wn-title" style:color={fields.color}>{fields.title}</div>
 </div>
 
 <style>
@@ -24,7 +20,7 @@
     font-style: normal;
   }
 
-  /* Player image fills the canvas exactly as the source PNG does */
+  /* Player image: same canvas position as the source PNGs */
   .wn-player-image {
     position: absolute;
     inset: 0;
@@ -35,38 +31,43 @@
     pointer-events: none;
   }
 
+  /*
+    Text block: sits to the right of the player figure.
+    All reference cutouts end at ~28% from left and ~67% from top.
+    Text starts just right of the figure, vertically at chest level (~60%).
+  */
   .wn-lower-third {
     position: absolute;
-    left: 38%;
-    top: 67%;
+    left: 29%;
+    top: 61%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
     pointer-events: none;
   }
 
-  .wn-pill {
+  .wn-name,
+  .wn-title {
     font-family: 'ZuumeEdgeCut', 'Arial Narrow', Impact, sans-serif;
     font-weight: 400;
-    background: rgba(238, 238, 238, 0.96);
-    border: 3px solid #1a1a1a;
-    border-radius: 50px;
-    letter-spacing: 0.05em;
-    text-align: center;
-    display: inline-block;
+    background: transparent;
+    border: none;
+    letter-spacing: 0.06em;
+    text-align: left;
     white-space: nowrap;
-    padding: 4px 32px 2px;
-    line-height: 1.1;
-    color: #111111;
+    line-height: 1;
+    color: #ffffff;
+    /* Shadow keeps text legible over any background */
+    text-shadow:
+      2px 2px 0 rgba(0,0,0,0.6),
+      0 0 12px rgba(0,0,0,0.4);
   }
 
-  .wn-pill--name {
-    font-size: clamp(2.2rem, 4vw, 3.6rem);
-    min-width: 260px;
+  .wn-name {
+    font-size: clamp(2.4rem, 4.4vw, 4rem);
   }
 
-  .wn-pill--title {
-    font-size: clamp(1.4rem, 2.6vw, 2.4rem);
-    min-width: 180px;
+  .wn-title {
+    font-size: clamp(1.5rem, 2.8vw, 2.6rem);
   }
 </style>

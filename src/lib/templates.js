@@ -8,7 +8,7 @@ export const TEMPLATES = [
     defaultFields: {
       name: 'PLAYER NAME',
       title: 'TEAM · POSITION',
-      color: '#111111',
+      color: '#ffffff',
       imageUrl: ''
     },
     defaultAnimation: {
