@@ -3,10 +3,6 @@
   let { fields = { name: 'PLAYER NAME', title: 'TEAM · POSITION', color: '#ffffff', imageUrl: '' } } = $props()
 </script>
 
-{#if fields.imageUrl}
-  <img src={fields.imageUrl} class="wn-player-image" alt={fields.name} />
-{/if}
-
 <div class="wn-lower-third">
   <div class="wn-name" style:color={fields.color}>{fields.name}</div>
   <div class="wn-title" style:color={fields.color}>{fields.title}</div>
@@ -18,17 +14,6 @@
     src: url('/fonts/zuume-edge-cut-3.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
-  }
-
-  /* Player image: same canvas position as the source PNGs */
-  .wn-player-image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: left bottom;
-    pointer-events: none;
   }
 
   /*
