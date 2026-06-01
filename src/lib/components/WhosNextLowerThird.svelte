@@ -23,8 +23,8 @@
   */
   .wn-lower-third {
     position: absolute;
-    left: 29%;
-    bottom: 13%;
+    left: 14%;
+    bottom: 23%;
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -42,10 +42,6 @@
     white-space: nowrap;
     line-height: 1;
     color: #ffffff;
-    /* Shadow keeps text legible over any background */
-    text-shadow:
-      2px 2px 0 rgba(0,0,0,0.6),
-      0 0 12px rgba(0,0,0,0.4);
   }
 
   .wn-name {
