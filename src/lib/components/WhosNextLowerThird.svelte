@@ -39,7 +39,7 @@
   .wn-lower-third {
     position: absolute;
     left: 29%;
-    top: 61%;
+    top: 74%;
     display: flex;
     flex-direction: column;
     gap: 4px;
