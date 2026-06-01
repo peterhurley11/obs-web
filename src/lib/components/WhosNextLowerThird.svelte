@@ -23,8 +23,8 @@
   */
   .wn-lower-third {
     position: absolute;
-    left: 14%;
-    bottom: 23%;
+    left: 44%;
+    bottom: 43%;
     display: flex;
     flex-direction: column;
     gap: 4px;
