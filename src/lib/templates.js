@@ -2,6 +2,21 @@
 
 export const TEMPLATES = [
   {
+    id: 'whos-next-lower-third',
+    label: "Who's Next",
+    component: 'WhosNextLowerThird',
+    defaultFields: {
+      name: 'PLAYER NAME',
+      title: 'TEAM · POSITION',
+      color: '#111111'
+    },
+    defaultAnimation: {
+      in: 'slide-up',
+      out: 'slide-down',
+      durationMs: 350
+    }
+  },
+  {
     id: 'lower-third',
     label: 'Lower Third',
     component: 'LowerThird',

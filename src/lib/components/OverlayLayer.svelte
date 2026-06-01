@@ -4,19 +4,22 @@
   import LowerThird from './LowerThird.svelte'
   import ScoreBoard from './ScoreBoard.svelte'
   import FullscreenTitle from './FullscreenTitle.svelte'
+  import WhosNextLowerThird from './WhosNextLowerThird.svelte'
 
-  let { overlay } = $props()
+  const { overlay } = $props()
 
   const COMPONENT_MAP = {
     LowerThird,
     ScoreBoard,
-    FullscreenTitle
+    FullscreenTitle,
+    WhosNextLowerThird
   }
 
   const TEMPLATE_TO_COMPONENT = {
     'lower-third': 'LowerThird',
-    'scoreboard': 'ScoreBoard',
-    'fullscreen-title': 'FullscreenTitle'
+    scoreboard: 'ScoreBoard',
+    'fullscreen-title': 'FullscreenTitle',
+    'whos-next-lower-third': 'WhosNextLowerThird'
   }
 
   const component = $derived(COMPONENT_MAP[TEMPLATE_TO_COMPONENT[overlay.templateId]] ?? null)
