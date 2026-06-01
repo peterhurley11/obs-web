@@ -93,9 +93,10 @@
 
       <div class="overlay-card__fields">
         {#each Object.entries(overlay.fields) as [key, val]}
+          {@const fieldLabel = tpl?.fieldLabels?.[key] ?? key}
           {#if key === 'imageUrl'}
             <div class="field image-field">
-              <label class="label is-small">player image</label>
+              <label class="label is-small">{fieldLabel}</label>
               {#if val}
                 <img src={val} class="image-thumb" alt="player" />
               {/if}
@@ -108,7 +109,7 @@
             </div>
           {:else}
             <TextZoneEditor
-              label={key}
+              label={fieldLabel}
               value={val}
               onchange={(v) => handleFieldChange(overlay, key, v)}
             />

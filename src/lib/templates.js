@@ -5,6 +5,12 @@ export const TEMPLATES = [
     id: 'whos-next-lower-third',
     label: "Who's Next",
     component: 'WhosNextLowerThird',
+    fieldLabels: {
+      name: 'Line 1',
+      title: 'Line 2',
+      color: 'Color',
+      imageUrl: 'Player Image'
+    },
     defaultFields: {
       name: 'PLAYER NAME',
       title: 'TEAM · POSITION',
