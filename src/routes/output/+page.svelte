@@ -1,7 +1,16 @@
 <!-- src/routes/output/+page.svelte -->
 <script>
+  import { onMount } from 'svelte'
   import { graphicsState } from '$lib/graphics.js'
   import OverlayLayer from '$lib/components/OverlayLayer.svelte'
+
+  // Force transparency via JS — Bulma's CSS bundle order beats :global !important in some builds
+  onMount(() => {
+    document.documentElement.style.setProperty('background', 'transparent', 'important')
+    document.documentElement.style.setProperty('overflow', 'hidden', 'important')
+    document.body.style.setProperty('background', 'transparent', 'important')
+    document.body.style.setProperty('overflow', 'hidden', 'important')
+  })
 </script>
 
 <svelte:head>
