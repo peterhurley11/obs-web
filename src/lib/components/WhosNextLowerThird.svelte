@@ -17,7 +17,12 @@
 </div>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+  @font-face {
+    font-family: 'ZuumeEdgeCut';
+    src: url('/fonts/zuume-edge-cut-3.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
   /* Player image fills the canvas exactly as the source PNG does */
   .wn-player-image {
@@ -41,7 +46,7 @@
   }
 
   .wn-pill {
-    font-family: 'Bebas Neue', 'Arial Narrow', Impact, sans-serif;
+    font-family: 'ZuumeEdgeCut', 'Arial Narrow', Impact, sans-serif;
     font-weight: 400;
     background: rgba(238, 238, 238, 0.96);
     border: 3px solid #1a1a1a;
