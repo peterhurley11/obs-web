@@ -8,7 +8,8 @@ export const TEMPLATES = [
     defaultFields: {
       name: 'PLAYER NAME',
       title: 'TEAM · POSITION',
-      color: '#111111'
+      color: '#111111',
+      imageUrl: ''
     },
     defaultAnimation: {
       in: 'slide-up',

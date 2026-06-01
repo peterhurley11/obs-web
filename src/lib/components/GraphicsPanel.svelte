@@ -35,6 +35,24 @@
       animation: { ...overlay.animation, [direction === 'in' ? 'in' : 'out']: value }
     })
   }
+
+  function handleImageChange (overlay, e) {
+    const file = e.target.files[0]
+    if (!file) return
+    const objectUrl = URL.createObjectURL(file)
+    const img = new Image()
+    img.onload = () => {
+      const MAX = 180
+      const ratio = Math.min(MAX / img.width, MAX / img.height)
+      const canvas = document.createElement('canvas')
+      canvas.width = Math.round(img.width * ratio)
+      canvas.height = Math.round(img.height * ratio)
+      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height)
+      URL.revokeObjectURL(objectUrl)
+      patchOverlay(overlay.id, { fields: { ...overlay.fields, imageUrl: canvas.toDataURL('image/jpeg', 0.85) } })
+    }
+    img.src = objectUrl
+  }
 </script>
 
 <section class="box graphics-panel">
@@ -77,11 +95,26 @@
 
       <div class="overlay-card__fields">
         {#each Object.entries(overlay.fields) as [key, val]}
-          <TextZoneEditor
-            label={key}
-            value={val}
-            onchange={(v) => handleFieldChange(overlay, key, v)}
-          />
+          {#if key === 'imageUrl'}
+            <div class="field image-field">
+              <label class="label is-small">player image</label>
+              {#if val}
+                <img src={val} class="image-thumb" alt="player" />
+              {/if}
+              <input
+                type="file"
+                accept="image/*"
+                class="file-input-native"
+                on:change={(e) => handleImageChange(overlay, e)}
+              />
+            </div>
+          {:else}
+            <TextZoneEditor
+              label={key}
+              value={val}
+              onchange={(v) => handleFieldChange(overlay, key, v)}
+            />
+          {/if}
         {/each}
       </div>
 
@@ -137,6 +170,23 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0 1rem;
+    align-items: flex-end;
+  }
+  .image-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .image-thumb {
+    height: 64px;
+    width: auto;
+    border-radius: 4px;
+    object-fit: contain;
+    background: #f0f0f0;
+  }
+  .file-input-native {
+    font-size: 0.75rem;
+    max-width: 160px;
   }
   .overlay-card__anim {
     margin-top: 0.5rem;

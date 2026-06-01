@@ -27,10 +27,13 @@
     {#each $graphicsState.overlays as overlay (overlay.id)}
       {@const tpl = getTemplate(overlay.templateId)}
       <div class="remote-card" class:is-live={overlay.visible}>
+        {#if overlay.fields?.imageUrl}
+          <img src={overlay.fields.imageUrl} class="remote-card__image" alt="player" />
+        {/if}
         <div class="remote-card__info">
           <span class="remote-card__label">{tpl?.label || overlay.templateId}</span>
           <span class="remote-card__preview">
-            {Object.values(overlay.fields ?? {}).slice(0, 2).join(' / ') || '—'}
+            {Object.entries(overlay.fields ?? {}).filter(([k]) => k !== 'imageUrl' && k !== 'color').map(([, v]) => v).slice(0, 2).join(' / ') || '—'}
           </span>
         </div>
         <button
@@ -72,11 +75,20 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 1rem;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
     border-radius: 6px;
     background: #f9f9f9;
     border: 2px solid #dbdbdb;
-    gap: 1rem;
+    gap: 0.75rem;
+  }
+  .remote-card__image {
+    height: 80px;
+    width: 64px;
+    object-fit: cover;
+    object-position: left bottom;
+    border-radius: 4px;
+    background: #ebebeb;
+    flex-shrink: 0;
   }
   .remote-card.is-live {
     border-color: #48c774;
