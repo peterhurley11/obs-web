@@ -1,7 +1,11 @@
 <!-- Who's Next lower third — pill badge style matching Almost Friday brand -->
 <script>
-  let { fields = { name: 'PLAYER NAME', title: 'TEAM · POSITION', color: '#111111' } } = $props()
+  let { fields = { name: 'PLAYER NAME', title: 'TEAM · POSITION', color: '#111111', imageUrl: '' } } = $props()
 </script>
+
+{#if fields.imageUrl}
+  <img src={fields.imageUrl} class="wn-player-image" alt={fields.name} />
+{/if}
 
 <div class="wn-lower-third">
   <div class="wn-pill wn-pill--name" style:color={fields.color}>
@@ -14,6 +18,17 @@
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+  /* Player image fills the canvas exactly as the source PNG does */
+  .wn-player-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: left bottom;
+    pointer-events: none;
+  }
 
   .wn-lower-third {
     position: absolute;

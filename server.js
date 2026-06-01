@@ -1,21 +1,63 @@
 import { createServer } from 'http'
-import { mkdirSync } from 'fs'
+import { mkdirSync, createWriteStream, createReadStream, existsSync } from 'fs'
+import { extname, basename, join } from 'path'
 import { WebSocketServer } from 'ws'
 import sirv from 'sirv'
 
 const PORT = parseInt(process.env.PORT, 10) || 8080
 
-// Ensure public/ exists so sirv doesn't crash before a build has run
+// Ensure public/ and uploads/ exist
 mkdirSync('public', { recursive: true })
+mkdirSync('uploads', { recursive: true })
 
 // In-memory graphics state
 let graphicsState = { overlays: [], version: 0 }
 
-// Static file server from the adapter-static output dir
+// Static file server for the SvelteKit build
 const assets = sirv('public', { single: true })
+
+const ALLOWED_IMAGE_EXTS = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp'])
+const MIME = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.webp': 'image/webp' }
 
 // HTTP server
 const server = createServer((req, res) => {
+  // File upload endpoint
+  if (req.method === 'POST' && req.url === '/upload') {
+    const rawName = req.headers['x-filename'] || 'upload'
+    const ext = extname(rawName).toLowerCase()
+    if (!ALLOWED_IMAGE_EXTS.has(ext)) {
+      res.writeHead(400, { 'Content-Type': 'application/json' })
+      res.end(JSON.stringify({ error: 'unsupported file type' }))
+      return
+    }
+    const filename = `${Date.now()}-${basename(rawName).replace(/[^a-zA-Z0-9._-]/g, '_')}`
+    const dest = createWriteStream(`uploads/${filename}`)
+    req.pipe(dest)
+    dest.on('finish', () => {
+      res.writeHead(200, { 'Content-Type': 'application/json' })
+      res.end(JSON.stringify({ url: `/uploads/${filename}` }))
+    })
+    dest.on('error', () => {
+      res.writeHead(500); res.end()
+    })
+    return
+  }
+
+  // Serve uploaded player images
+  if (req.url.startsWith('/uploads/')) {
+    const filename = req.url.slice('/uploads/'.length)
+    if (!filename || filename.includes('..') || filename.includes('/')) {
+      res.writeHead(400); res.end(); return
+    }
+    const filepath = join('uploads', filename)
+    if (!existsSync(filepath)) { res.writeHead(404); res.end(); return }
+    const ext = extname(filename).toLowerCase()
+    res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream', 'Access-Control-Allow-Origin': '*' })
+    createReadStream(filepath).pipe(res)
+    return
+  }
+
+  // Serve SvelteKit static build
   assets(req, res, () => {
     res.statusCode = 404
     res.end('Not found')

@@ -36,22 +36,20 @@
     })
   }
 
-  function handleImageChange (overlay, e) {
+  async function handleImageChange (overlay, e) {
     const file = e.target.files[0]
     if (!file) return
-    const objectUrl = URL.createObjectURL(file)
-    const img = new Image()
-    img.onload = () => {
-      const MAX = 180
-      const ratio = Math.min(MAX / img.width, MAX / img.height)
-      const canvas = document.createElement('canvas')
-      canvas.width = Math.round(img.width * ratio)
-      canvas.height = Math.round(img.height * ratio)
-      canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height)
-      URL.revokeObjectURL(objectUrl)
-      patchOverlay(overlay.id, { fields: { ...overlay.fields, imageUrl: canvas.toDataURL('image/jpeg', 0.85) } })
+    try {
+      const res = await fetch('/upload', {
+        method: 'POST',
+        headers: { 'X-Filename': file.name },
+        body: file
+      })
+      const { url } = await res.json()
+      patchOverlay(overlay.id, { fields: { ...overlay.fields, imageUrl: url } })
+    } catch (err) {
+      console.error('image upload failed', err)
     }
-    img.src = objectUrl
   }
 </script>
 
