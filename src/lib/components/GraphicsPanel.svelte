@@ -94,7 +94,17 @@
       <div class="overlay-card__fields">
         {#each Object.entries(overlay.fields) as [key, val]}
           {@const fieldLabel = tpl?.fieldLabels?.[key] ?? key}
-          {#if key === 'imageUrl'}
+          {#if key === 'posX' || key === 'posY'}
+            <div class="field slider-field">
+              <label class="label is-small">{fieldLabel}: {val}%</label>
+              <input
+                type="range" min="0" max="100" step="1"
+                value={val}
+                class="slider"
+                on:input={(e) => handleFieldChange(overlay, key, +e.target.value)}
+              />
+            </div>
+          {:else if key === 'imageUrl'}
             <div class="field image-field">
               <label class="label is-small">{fieldLabel}</label>
               {#if val}
@@ -186,6 +196,14 @@
   .file-input-native {
     font-size: 0.75rem;
     max-width: 160px;
+  }
+  .slider-field {
+    min-width: 160px;
+    flex: 1;
+  }
+  .slider {
+    width: 100%;
+    cursor: pointer;
   }
   .overlay-card__anim {
     margin-top: 0.5rem;

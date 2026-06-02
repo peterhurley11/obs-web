@@ -1,9 +1,9 @@
 <!-- Who's Next lower third — Zuume Edge Cut, white text, transparent bg -->
 <script>
-  let { fields = { name: 'PLAYER NAME', title: 'TEAM · POSITION', color: '#ffffff', imageUrl: '' } } = $props()
+  let { fields = { name: 'PLAYER NAME', title: 'TEAM · POSITION', color: '#ffffff', posX: 44, posY: 43 } } = $props()
 </script>
 
-<div class="wn-lower-third">
+<div class="wn-lower-third" style:left="{fields.posX ?? 44}%" style:bottom="{fields.posY ?? 43}%">
   <div class="wn-name" style:color={fields.color}>{fields.name}</div>
   <div class="wn-title" style:color={fields.color}>{fields.title}</div>
 </div>
@@ -23,8 +23,6 @@
   */
   .wn-lower-third {
     position: absolute;
-    left: 44%;
-    bottom: 43%;
     display: flex;
     flex-direction: column;
     gap: 4px;
