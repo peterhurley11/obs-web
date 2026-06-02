@@ -8,16 +8,12 @@ export const TEMPLATES = [
     fieldLabels: {
       name: 'Line 1',
       title: 'Line 2',
-      color: 'Color',
-      posX: 'Left %',
-      posY: 'Bottom %'
+      color: 'Color'
     },
     defaultFields: {
       name: 'PLAYER NAME',
       title: 'TEAM · POSITION',
-      color: '#ffffff',
-      posX: 44,
-      posY: 43
+      color: '#ffffff'
     },
     defaultAnimation: {
       in: 'slide-up',
