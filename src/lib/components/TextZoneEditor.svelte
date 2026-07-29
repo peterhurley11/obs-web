@@ -1,5 +1,5 @@
 <script>
-  let { label = '', value = '', onchange = (_v) => {} } = $props()
+  const { label = '', value = '', onchange = (_v) => {} } = $props()
 
   function handleInput (e) {
     onchange(e.target.value)

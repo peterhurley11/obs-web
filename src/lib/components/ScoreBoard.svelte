@@ -1,5 +1,5 @@
 <script>
-  let { fields = { teamA: 'HOME', teamB: 'AWAY', scoreA: '0', scoreB: '0', period: 'Q1' } } = $props()
+  const { fields = { teamA: 'HOME', teamB: 'AWAY', scoreA: '0', scoreB: '0', period: 'Q1' } } = $props()
 </script>
 
 <div class="scoreboard">

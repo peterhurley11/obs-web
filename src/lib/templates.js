@@ -22,6 +22,32 @@ export const TEMPLATES = [
     }
   },
   {
+    id: 'hold-the-phone-lower-third',
+    label: 'Hold The Phone',
+    component: 'HoldThePhoneLowerThird',
+    fieldLabels: {
+      name: 'Line 1 (Name)',
+      title: 'Line 2 (Title)'
+    },
+    defaultFields: {
+      name: 'GUEST NAME',
+      title: 'SEGMENT / ROLE'
+    },
+    defaultAnimation: {
+      in: 'slide-up',
+      out: 'slide-down',
+      durationMs: 350
+    },
+    hasStylePreset: true,
+    hasSheetRoster: true,
+    defaultStyle: {
+      position: { xPct: 6, yPct: 78 },
+      scale: 1,
+      line1: { fontFamily: 'Tungsten Bold', fontSizePx: 64 },
+      line2: { fontFamily: 'Tungsten Semibold', fontSizePx: 32 }
+    }
+  },
+  {
     id: 'lower-third',
     label: 'Lower Third',
     component: 'LowerThird',

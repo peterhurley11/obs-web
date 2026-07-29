@@ -1,10 +1,13 @@
 <script>
   import { onMount } from 'svelte'
   import { animate } from '$lib/animations.js'
+  import { graphicsState } from '$lib/graphics.js'
+  import { getTemplate } from '$lib/templates.js'
   import LowerThird from './LowerThird.svelte'
   import ScoreBoard from './ScoreBoard.svelte'
   import FullscreenTitle from './FullscreenTitle.svelte'
   import WhosNextLowerThird from './WhosNextLowerThird.svelte'
+  import HoldThePhoneLowerThird from './HoldThePhoneLowerThird.svelte'
 
   const { overlay } = $props()
 
@@ -12,17 +15,22 @@
     LowerThird,
     ScoreBoard,
     FullscreenTitle,
-    WhosNextLowerThird
+    WhosNextLowerThird,
+    HoldThePhoneLowerThird
   }
 
   const TEMPLATE_TO_COMPONENT = {
     'lower-third': 'LowerThird',
     scoreboard: 'ScoreBoard',
     'fullscreen-title': 'FullscreenTitle',
-    'whos-next-lower-third': 'WhosNextLowerThird'
+    'whos-next-lower-third': 'WhosNextLowerThird',
+    'hold-the-phone-lower-third': 'HoldThePhoneLowerThird'
   }
 
   const component = $derived(COMPONENT_MAP[TEMPLATE_TO_COMPONENT[overlay.templateId]] ?? null)
+  const templateStyle = $derived(
+    $graphicsState.templateStyles?.[overlay.templateId] ?? getTemplate(overlay.templateId)?.defaultStyle ?? {}
+  )
 
   let el = $state(null)
   let mounted = $state(false)
@@ -87,6 +95,7 @@
       <svelte:component
         this={component}
         fields={overlay.fields}
+        style={templateStyle}
       />
     {/if}
   </div>

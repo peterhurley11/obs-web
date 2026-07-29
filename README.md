@@ -54,6 +54,25 @@ npm ci
 npm run dev # or: npm run build
 ```
 
+#### Graphics overlays — Google Sheet–driven roster:
+
+The control panel (bottom of the main page) includes a **Hold The Phone** lower third whose
+guest list is pulled live from a Google Sheet, plus per-template position/scale/font/size
+controls.
+
+1. In Google Sheets: `File -> Share -> Publish to web`, select the roster sheet/tab, choose
+   **CSV**, and copy the resulting URL. The sheet should have a header row followed by rows of
+   `Name, Title`.
+2. Copy `.env.example` to `.env` and set `SHEET_CSV_URL` to that link. `SHEET_POLL_MS` (default
+   `20000`) controls how often the server re-fetches it.
+3. Run the server with `npm run serve` (or `npm run dev:server` for local dev) — both scripts
+   load `.env` automatically via Node's `--env-file-if-exists` flag, no manual `export` needed.
+
+Overlay state and each template's style preset (position/scale/font/size) are persisted to
+`data/state.json` and reloaded on restart, so a mid-show server restart doesn't lose the current
+look. The polled sheet roster itself is not persisted — it's always re-fetched from the source of
+truth.
+
 #### Docker:
 
 ```bash

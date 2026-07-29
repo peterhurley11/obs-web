@@ -43,6 +43,8 @@
   import ProfileSelect from '../ProfileSelect.svelte'
   import SceneCollectionSelect from '../SceneCollectionSelect.svelte'
   import GraphicsPanel from '$lib/components/GraphicsPanel.svelte'
+  import StylePresetPanel from '$lib/components/StylePresetPanel.svelte'
+  import SheetRosterPanel from '$lib/components/SheetRosterPanel.svelte'
 
   onMount(async () => {
     if ('serviceWorker' in navigator) {
@@ -849,6 +851,8 @@
 <section class="section" style="padding-top: 0;">
   <div class="container">
     <GraphicsPanel />
+    <StylePresetPanel />
+    <SheetRosterPanel />
   </div>
 </section>
 

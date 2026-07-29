@@ -6,8 +6,8 @@
     "build": "vite build",
     "dev": "vite dev --host --port 8080",
     "start": "vite preview --host --port 8080",
-    "serve": "node server.js",
-    "dev:server": "PORT=8081 node server.js",
+    "serve": "node --env-file-if-exists=.env server.js",
+    "dev:server": "PORT=8081 node --env-file-if-exists=.env server.js",
     "lint": "eslint . --ext .js,.ts,.svelte,.html --fix"
   },
   "dependencies": {

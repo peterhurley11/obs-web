@@ -1,5 +1,5 @@
 <script>
-  let { fields = { name: '', title: '' } } = $props()
+  const { fields = { name: '', title: '' } } = $props()
 </script>
 
 <div class="lower-third">

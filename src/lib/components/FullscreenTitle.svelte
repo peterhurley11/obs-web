@@ -1,5 +1,5 @@
 <script>
-  let { fields = { headline: '', subtext: '' } } = $props()
+  const { fields = { headline: '', subtext: '' } } = $props()
 </script>
 
 <div class="fullscreen-title">

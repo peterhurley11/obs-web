@@ -3,3 +3,5 @@
 .cache/
 .DS_Store
 /public/
+/data/
+.env
